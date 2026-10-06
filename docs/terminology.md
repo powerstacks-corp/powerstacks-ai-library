@@ -13,7 +13,7 @@
 | Example | A sample question with the kind of result to expect. |
 | AI client | The application you use to talk to an AI model. |
 | Connector | The component that lets an AI client query a semantic model. |
-| Integration guide | Steps for using library resources with a specific client and connector combination. |
+| Connection guidance | General requirements and steps for connecting an AI client to a semantic model through a connector. It doesn't name specific products or vendors. |
 | Package | The set of files released for one product, or for a supported combination of products. |
 | Manifest | A record of a package's version, status, dependencies, and tested compatibility. |
 | Cross-product resource | A resource for customers who use more than one PowerStacks BI product together. It depends on the related single-product packages. |

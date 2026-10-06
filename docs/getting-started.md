@@ -8,11 +8,11 @@ When a release is available, getting started will follow these general steps:
 
 1. Choose the PowerStacks product you own.
 2. Choose a skill or prompt.
-3. Choose an AI client and connector from the combinations listed in [Compatibility](compatibility.md).
-4. Follow the matching guide in [integrations](../integrations/README.md).
-5. Run the verification example in that guide to confirm the connection and result.
+3. Confirm your environment meets the requirements in [Compatibility](compatibility.md).
+4. Follow the connection guidance in [integrations](../integrations/README.md).
+5. Run the verification example to confirm the connection and result.
 
-Prerequisites, permissions, and any cost considerations will be documented with each integration guide.
+Prerequisites, permissions, and cost considerations will be documented with the connection guidance.
 
 ## In the Meantime
 

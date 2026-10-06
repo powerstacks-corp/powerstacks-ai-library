@@ -25,13 +25,13 @@ Each product will be packaged and versioned on its own, so you only need the res
 | [docs/](docs/README.md) | Overview, terminology, getting started, compatibility, known limitations |
 | [shared/](shared/README.md) | Common foundation shared by all products |
 | [products/](products/bi-for-intune/README.md) | Product-specific model context, skills, prompts, and examples |
-| [integrations/](integrations/README.md) | Guides for specific AI clients and connectors |
+| [integrations/](integrations/README.md) | General guidance for connecting an AI tool to your model |
 | [cross-product/](cross-product/bi-for-intune-and-defender/README.md) | Resources that span more than one product |
 | [manifests/](manifests/README.md) | Package versions, dependencies, and compatibility records |
 
 ## Provider Neutrality
 
-The core content is written so it isn't tied to one AI provider. Steps that only apply to a particular AI client or connector are kept separately under [integrations/](integrations/README.md). Only tested combinations will be listed in [compatibility](docs/compatibility.md).
+The library is written so it isn't tied to any AI provider. Its documentation doesn't name or recommend specific AI products, vendors, or connection services. Connection guidance under [integrations/](integrations/README.md) describes requirements in general terms, and [compatibility](docs/compatibility.md) lists only what has been tested.
 
 ## Distribution Terms
 

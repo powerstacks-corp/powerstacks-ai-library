@@ -1,7 +1,7 @@
 # Connectors
 
-> No connector guides have been released.
+> No connector guidance has been released yet.
 
-A connector lets an AI client query a PowerStacks semantic model. Connector guides will cover how to set up the connection and what it requires.
+A connector lets an AI client query a PowerStacks semantic model. Guidance here will describe, in general terms, what a connector needs to provide, along with prerequisites, permissions, security considerations, and a verification example.
 
-Each guide will include prerequisites, setup steps, permissions, cost and licensing considerations, security considerations, limitations, and a verification example. A guide will only be published here after its connector has been tested with the library.
+It won't name or recommend specific products, vendors, or services.

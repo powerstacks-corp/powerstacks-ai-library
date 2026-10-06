@@ -1,12 +1,12 @@
 # Integrations
 
-> No integration guides have been released. No client or connector has been tested for use with the library yet.
+> No connection guidance has been released yet.
 
-Core library content is provider-neutral. Anything that depends on a particular AI client or connector is kept here instead:
+The library doesn't name or recommend specific AI products, vendors, or connection services. Guidance here describes, in general terms, what you need to connect an AI tool to a PowerStacks semantic model:
 
 | Folder | Will contain |
 | --- | --- |
-| [clients](clients/README.md) | Guidance specific to an AI client |
-| [connectors](connectors/README.md) | Guidance specific to a connector that lets an AI client query a semantic model |
+| [clients](clients/README.md) | What an AI client needs in order to use library resources |
+| [connectors](connectors/README.md) | What a connector needs in order to let an AI client query a semantic model |
 
-Guides will only be published for combinations that have been tested. Tested combinations are listed in [Compatibility](../docs/compatibility.md).
+Validated requirements are listed in [Compatibility](../docs/compatibility.md).

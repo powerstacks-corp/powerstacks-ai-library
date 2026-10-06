@@ -15,7 +15,7 @@ desktop.ini
 *.pfx
 secrets/
 
-# Power BI files and data exports do not belong in this repository
+# Model files and data exports do not belong in this repository
 *.pbix
 *.pbit
 *.vpax
