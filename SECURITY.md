@@ -4,12 +4,16 @@
 
 Please don't report security issues in public GitHub issues, discussions, or pull requests.
 
-To report an issue privately, go to this repository's **Security** tab and select **Report a vulnerability**. The report is visible only to PowerStacks maintainers.
+To report an issue privately, go to this repository's **Security** tab and select **Report a vulnerability**, or email support@powerstacks.com. Reports are visible only to PowerStacks.
 
 ## What Not to Include
 
 Don't post credentials, access tokens, tenant identifiers, customer data, or exports from your environment anywhere in this repository, including in issues. If you need to show an example, remove or replace identifying values first.
 
-## Current Scope
+## How the Skills Handle Data
 
-This repository is an early scaffold. It doesn't contain released AI resources or software yet.
+- The skills run inside the AI assistant you choose and query your semantic model with your own permissions. PowerStacks doesn't receive your data.
+- Queries are read-only DAX queries. The skills never change your semantic model, Intune, or Microsoft Defender.
+- The skills never read connection credentials stored in the semantic model's parameters.
+- Your AI assistant's provider processes the prompts and query results under your agreement with that provider.
+- Generated presentations and HTML reports can contain device names, serial numbers, and user names. Store and share them like the data they came from.

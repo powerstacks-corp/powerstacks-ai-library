@@ -1,0 +1,157 @@
+{
+  "artifactId": "bi-for-defender.skill.security-operations-analyst",
+  "productScope": [
+    "bi-for-defender"
+  ],
+  "artifactVersion": "0.1.0-preview",
+  "status": "preview",
+  "connectionRequirements": [
+    "DAX query access to the BI for Defender semantic model",
+    "Ability to run several queries per request",
+    "Metadata query access (INFO.VIEW functions) for the schema check",
+    "No semantic model parameters are read. Never run INFO.EXPRESSIONS or INFO.PARTITIONS, and never read ApiKey, AzureAD TenantID, AzureAD ClientID, or AzureAD ClientSecret."
+  ],
+  "optionalRequirements": [
+    "Executive outputs (on request): Python 3.9 or later on the computer running the skill; the python-pptx package for presentations."
+  ],
+  "inputs": {
+    "LastSeenBands": [
+      7,
+      14,
+      30,
+      60,
+      90
+    ],
+    "StaleDataDays": 1,
+    "DeviceDetailLimit": 50,
+    "MinDevices": 1,
+    "MinShare": 0,
+    "MaxFindings": 5,
+    "RankBy": "Scale",
+    "DeadlineWindowDays": 14,
+    "Scope": null
+  },
+  "requiredSchema": {
+    "core": {
+      "Device": [
+        "Defender Device ID",
+        "Device Name",
+        "Onboarding Status",
+        "Is Excluded",
+        "Device State",
+        "Last Seen",
+        "OS"
+      ],
+      "Authorization": [
+        "Refresh Time"
+      ]
+    },
+    "S1": {
+      "Authorization": [
+        "Status",
+        "License Type",
+        "End Date"
+      ],
+      "Software Devices": [
+        "Defender Device ID"
+      ],
+      "Software Vulnerabilities": [
+        "Last Seen"
+      ]
+    },
+    "S2": {
+      "Software Vulnerabilities": [
+        "deviceSoftwareVersion.id",
+        "deviceVulnerability.id",
+        "vulnerability.id",
+        "Is Active",
+        "First Seen",
+        "Last Seen"
+      ],
+      "Software Devices": [
+        "deviceSoftwareVersion.id",
+        "Defender Device ID",
+        "softwareVersion.id"
+      ],
+      "Vulnerability": [
+        "vulnerability.id",
+        "Vulnerability Name",
+        "Severity Level",
+        "Exploitability Level",
+        "CVSS V3"
+      ],
+      "Software": [
+        "softwareVersion.id",
+        "Software Name",
+        "Publisher"
+      ]
+    },
+    "S3": {
+      "Device": [
+        "First Seen",
+        "OS Release ID",
+        "Device Manufacturer",
+        "Device Model",
+        "device.id"
+      ],
+      "User Devices": [
+        "device.id",
+        "User ID",
+        "Logon User"
+      ],
+      "User": [
+        "User ID",
+        "User Name",
+        "Full Name",
+        "Department"
+      ]
+    },
+    "S4": {
+      "Software Vulnerabilities": [
+        "Missing Security Update",
+        "Missing Security Update ID"
+      ]
+    },
+    "S5": {
+      "Software": [
+        "End Of Support Status",
+        "End Of Support Date",
+        "Version"
+      ],
+      "Software Devices": [
+        "Is Active"
+      ]
+    }
+  },
+  "entryPoint": "SKILL.md",
+  "license": "MIT",
+  "files": [
+    "LICENSE",
+    "SKILL.md",
+    "manifest.json",
+    "references/analysis-areas.md",
+    "references/analysis-foundation.md",
+    "references/executive-outputs.md",
+    "references/model-foundation.md",
+    "references/ranking-and-output.md",
+    "scripts/README.md",
+    "scripts/build_deck.py",
+    "scripts/build_report.py",
+    "scripts/executive-data.schema.json",
+    "scripts/make_template.py",
+    "scripts/serve_report.py",
+    "scripts/templates/powerstacks-executive.pptx",
+    "scripts/templates/powerstacks-logo.png",
+    "scripts/templates/report-template.html"
+  ],
+  "modelCompatibility": [
+    {
+      "product": "bi-for-defender",
+      "modelVersions": [
+        "15"
+      ],
+      "status": "preview",
+      "builtAgainstVersion": "15"
+    }
+  ]
+}

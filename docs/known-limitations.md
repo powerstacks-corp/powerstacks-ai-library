@@ -1,16 +1,11 @@
 # Known Limitations
 
-> No validated AI release is available yet.
+These apply to the Preview skills. Each skill's own folder lists the limitations specific to its product.
 
-## Current Limitations
-
-- **No released resources.** This repository contains structure and documentation only.
-- **No tested integrations.** No AI client or connector has been validated for use with the library yet. See [Compatibility](compatibility.md).
-- **Product coverage.** BI for Intune resources are being prepared first. BI for Defender, BI for SCCM, and cross-product resources haven't been released.
-
-## General Considerations
-
-These apply to AI analysis generally and will be expanded with product-specific detail as resources are released:
-
-- AI tools can produce incorrect or incomplete answers. Review results before acting on them.
-- Answers can only reflect the data in your model as of its last refresh.
+- **Current state only.** The semantic models hold current state, so the skills don't report trends over time (except where a product stores history, such as Secure Score in BI for Defender).
+- **Scale is not risk.** Findings are ranked by how many devices are affected. A small finding can matter more than a large one; the skills say so instead of judging severity for you.
+- **The data is only as current as the last refresh.** Every briefing shows when the data was collected. Devices that haven't checked in recently can show out-of-date status, and the briefing calls them out.
+- **Defender fields describe Microsoft Defender only.** If you use another antivirus product, Defender protection fields can show as off. The skills don't infer anything about other products.
+- **Status colors are defaults.** The 95% and 85% thresholds in presentations and reports are starting points, not a risk assessment. You can change them.
+- **AI assistants vary.** Results depend on the assistant and model you use. Check important findings in the BI for Intune or BI for Defender reports before you act on them.
+- **Large tenants.** A full briefing runs many queries. In very large tenants it can take several minutes.

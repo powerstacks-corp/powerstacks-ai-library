@@ -1,42 +1,56 @@
 # PowerStacks AI Library
 
-This repository is where PowerStacks will publish AI resources for its BI products: model context, skills, and prompts that help an AI tool work with the PowerStacks semantic model you already use.
+AI skills for PowerStacks BI products. A skill teaches an AI assistant how to read the PowerStacks semantic model you already have, so you can ask for a briefing in plain English and get an answer built from your own data.
 
-> **Status: early scaffold.** No validated AI release is available yet. Nothing here is ready to install or use. BI for Intune resources are being prepared first.
+> **Preview.** These skills are early versions. They're tested against PowerStacks demo environments, and their results can change between versions. Check important findings in the product reports before you act on them, and tell us what you find.
 
-## What This Repository Is For
+## Skills
 
-PowerStacks BI products include a data model with the relationships, measures, and business logic already built. You never had to learn DAX or build the model yourself. The resources in this library will describe that model to an AI tool so it can answer questions using the same logic the reports use.
+| Skill | Product | What it does | Status |
+| --- | --- | --- | --- |
+| [Endpoint Operations Analyst](products/bi-for-intune/skills/endpoint-operations-analyst/SKILL.md) | BI for Intune | A daily endpoint briefing: up to five issues to investigate today, ranked by how many devices each affects, with check-in context, device details, Microsoft guidance for app error codes, and next steps. | Preview |
+| [Security Operations Analyst](products/bi-for-defender/skills/security-operations-analyst/SKILL.md) | BI for Defender | A security briefing from your Microsoft Defender data: how current the data is and which devices lack assessment data, devices with active critical or exploitable vulnerabilities, missing Microsoft security updates, end-of-support software, and devices not seen recently. | Preview |
 
-## Products
+Both skills can also turn a briefing into an executive PowerPoint presentation and a one-page interactive HTML report.
 
-| Product | Status |
-| --- | --- |
-| [BI for Intune](products/bi-for-intune/README.md) | In preparation. Not released. |
-| [BI for Defender](products/bi-for-defender/README.md) | Not released. |
-| [BI for SCCM](products/bi-for-sccm/README.md) | Not released. |
+## How It Works
 
-Each product will be packaged and versioned on its own, so you only need the resources for the products you own. Resources for customers who use more than one product will live in [cross-product](cross-product/bi-for-intune-and-defender/README.md) and are also not released.
+1. Your AI assistant loads the skill folder.
+2. It connects to your BI for Intune or BI for Defender semantic model through the Microsoft Power BI MCP server, signed in as you.
+3. It runs read-only DAX queries, follows the skill's rules for populations, counts, and caveats, and writes the briefing.
 
-## Repository Layout
+The skills don't send your data to PowerStacks, and they never change your semantic model, Intune, or Microsoft Defender.
 
-| Path | Contents |
-| --- | --- |
-| [docs/](docs/README.md) | Overview, terminology, getting started, compatibility, known limitations |
-| [shared/](shared/README.md) | Common foundation shared by all products |
-| [products/](products/bi-for-intune/README.md) | Product-specific model context, skills, prompts, and examples |
-| [integrations/](integrations/README.md) | General guidance for connecting an AI tool to your model |
-| [cross-product/](cross-product/bi-for-intune-and-defender/README.md) | Resources that span more than one product |
-| [manifests/](manifests/README.md) | Package versions, dependencies, and compatibility records |
+## Requirements
 
-## Provider Neutrality
+- BI for Intune or BI for Defender deployed in your Power BI workspace, with a completed data refresh.
+- Build permission on that product's semantic model.
+- Your Power BI administrator enables the tenant setting **Users can use the Power BI Model Context Protocol server endpoint (preview)**.
+- An AI assistant that can load skill folders (`SKILL.md`) and connect to remote MCP servers.
+- For presentations and HTML reports only: Python 3.9 or later on the computer that runs the assistant, and the `python-pptx` package for presentations.
 
-The library is written so it isn't tied to any AI provider. Its documentation doesn't name or recommend specific AI products, vendors, or connection services. Connection guidance under [integrations/](integrations/README.md) describes requirements in general terms, and [compatibility](docs/compatibility.md) lists only what has been tested.
+## Get Started
 
-## Distribution Terms
+Follow the [getting started guide](docs/getting-started.md). In short:
 
-Distribution terms for this repository haven't been published yet. They will be added before any substantive resources are released.
+1. Download this repository (clone it or download the ZIP).
+2. Copy the skill folder for your product into your AI assistant's skills folder.
+3. Add the Microsoft Power BI MCP server to your assistant: `https://api.fabric.microsoft.com/v1/mcp/powerbi`.
+4. Copy your semantic model ID from the model's URL in the Power BI service.
+5. Ask for a briefing, for example: "Act as my endpoint operations analyst. Use semantic model `<ID>` and give me today's briefing."
 
-## Security
+## Documentation
 
-See [SECURITY.md](SECURITY.md) for how to report a security issue.
+- [Getting started](docs/getting-started.md)
+- [Compatibility](docs/compatibility.md)
+- [Known limitations](docs/known-limitations.md)
+- [Changelog](CHANGELOG.md)
+- [Security](SECURITY.md)
+
+## Feedback
+
+Open a [GitHub issue](https://github.com/powerstacks-corp/powerstacks-ai-library/issues) for Preview feedback. Don't include tenant data, device names, or user names. For anything private, email support@powerstacks.com.
+
+## License
+
+[MIT](LICENSE), with the exceptions listed in [NOTICE](NOTICE.md).

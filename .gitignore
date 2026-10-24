@@ -7,6 +7,10 @@ desktop.ini
 *.swp
 *~
 
+# Python
+__pycache__/
+*.pyc
+
 # Local environment and secrets
 .env
 .env.*
@@ -15,11 +19,14 @@ desktop.ini
 *.pfx
 secrets/
 
-# Model files and data exports do not belong in this repository
+# Model files, data exports, and generated output do not belong in this repository
 *.pbix
 *.pbit
 *.vpax
 exports/
+briefing*.json
+briefing*.pptx
+briefing*.html
 
 # Scratch output
 tmp/

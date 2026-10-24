@@ -1,0 +1,292 @@
+{
+  "artifactId": "bi-for-intune.skill.endpoint-operations-analyst",
+  "productScope": [
+    "bi-for-intune"
+  ],
+  "artifactVersion": "0.11.0-preview",
+  "status": "preview",
+  "connectionRequirements": [
+    "DAX query access to the BI for Intune semantic model",
+    "Ability to run several queries per request",
+    "Metadata query access (INFO functions) to read the approved data settings; optional, with a fallback when not permitted. Never read other parameters, and never ApiKey, AzureAD TenantID, AzureAD ClientID, AzureAD ClientSecret.",
+    "Optional: read-only Power BI REST access to the dataset's refresh history (Microsoft requires Write permission on the dataset for this call). A fallback applies when unavailable."
+  ],
+  "optionalRequirements": [
+    "Executive outputs (on request): Python 3.9 or later on the computer running the skill; the python-pptx package for presentations."
+  ],
+  "inputs": {
+    "CheckInBands": [
+      14,
+      30,
+      60,
+      90
+    ],
+    "ActiveDays": null,
+    "MinDevices": 10,
+    "MinShare": 0.01,
+    "MaxFindings": 5,
+    "RankBy": "Scale",
+    "DeadlineWindowDays": 14,
+    "DeviceDetailLimit": 50,
+    "PrimaryAntivirus": "Unknown",
+    "Scope": null,
+    "RefreshDurationMultiplier": 2,
+    "RefreshBaselineCount": 10,
+    "RefreshBaselineMinimum": 5,
+    "TimeZone": null
+  },
+  "requiredSchema": {
+    "core": {
+      "Device": [
+        "Intune Device ID",
+        "Is Managed",
+        "Managed By",
+        "Last Check-In",
+        "Last Check-In (Days)",
+        "OS",
+        "Ownership",
+        "Compliance",
+        "Cloud PC Enrolled",
+        "Device Name"
+      ],
+      "User Devices": [
+        "Intune Device ID",
+        "DeviceIDUPN"
+      ],
+      "Authorization": [
+        "Refresh Time"
+      ]
+    },
+    "A1": {
+      "Connector & Token": [
+        "Connector Type",
+        "Connector State",
+        "Last Sync (Days)",
+        "Expiration Date (Days)",
+        "Is Expired",
+        "Expiration Date"
+      ]
+    },
+    "A3": {
+      "Compliance Policy State": [
+        "Intune Device ID",
+        "Policy Status",
+        "compliancePolicy.id",
+        "deviceCompliancePolicy.id"
+      ],
+      "Compliance Policy": [
+        "Policy Name"
+      ]
+    },
+    "A4": {
+      "Configuration State": [
+        "Intune Device ID",
+        "Configuration Status",
+        "configuration.id"
+      ],
+      "Configuration": [
+        "Configuration Name"
+      ]
+    },
+    "A5": {
+      "Application State": [
+        "DeviceIDUPN",
+        "App Status",
+        "App Error Code",
+        "App ID"
+      ],
+      "Application": [
+        "App ID",
+        "App Name"
+      ],
+      "Application Error Code": [
+        "App Error Code",
+        "App Error Message"
+      ],
+      "Application Type": [
+        "App Type"
+      ]
+    },
+    "A6": {
+      "Script State": [
+        "Intune Device ID",
+        "Script Status",
+        "Last Update (Days)",
+        "script.id"
+      ],
+      "Script": [
+        "Script Name"
+      ],
+      "Proactive Remediation State": [
+        "Intune Device ID",
+        "Remediation Status",
+        "Last Status Update (Days)",
+        "healthScript.id"
+      ],
+      "Proactive Remediation": [
+        "Script Package Name"
+      ]
+    },
+    "A7": {
+      "Device": [
+        "OS Security Update Status",
+        "OS Feature Update Status",
+        "OS Feature Update EOS Date",
+        "OS Feature Update Is Near EOS (6 Months)",
+        "OS Release ID",
+        "OS Edition"
+      ],
+      "Windows Update Ring State": [
+        "Intune Device ID",
+        "Windows Update Ring Status"
+      ],
+      "Windows Feature Update State": [
+        "Intune Device ID",
+        "Feature Update Aggregated Status"
+      ]
+    },
+    "A8": {
+      "Device Encryption": [
+        "Intune Device ID",
+        "Encryption Status",
+        "Encryption Readiness",
+        "Encryption Status Details"
+      ]
+    },
+    "A9": {
+      "Windows Protection": [
+        "Intune Device ID",
+        "RealTime Protection Enabled",
+        "Tamper Protection Enabled",
+        "Signature Update Overdue"
+      ]
+    },
+    "A10": {
+      "Device Enrollment Failure": [
+        "Enrollment Failure Time",
+        "Failure Category",
+        "Failure Reason",
+        "Enrollment Failure ID"
+      ],
+      "Autopilot Deployment State": [
+        "Intune Device ID",
+        "Ap Deployment State",
+        "Enrollment Date"
+      ]
+    },
+    "A11": {
+      "Device Performance": [
+        "Intune Device ID",
+        "Performance Health Status"
+      ],
+      "Device App Reliability": [
+        "Intune Device ID",
+        "Device App Reliability Health Status"
+      ]
+    },
+    "A12": {
+      "Device Physical Disk": [
+        "Intune Device ID",
+        "Disk S.M.A.R.T Predict Failure",
+        "Disk Health Status"
+      ]
+    },
+    "A14": {
+      "Device": [
+        "Update Compliance Enrolled",
+        "Last WU Scan (Days)",
+        "Device Details Enrolled",
+        "App Inventory Enrolled",
+        "Driver Inventory Enrolled",
+        "Device Microsoft 365 Enrolled",
+        "Device Manufacturer",
+        "Join Type"
+      ],
+      "Device Warranty": [
+        "Intune Device ID",
+        "Warranty End Date"
+      ]
+    },
+    "A15": {
+      "Device Microsoft 365": [
+        "Intune Device ID",
+        "M365 Status"
+      ]
+    },
+    "A2": {
+      "Device": [
+        "Device Manufacturer",
+        "Device Model",
+        "Serial Number"
+      ],
+      "User Devices": [
+        "Primary User",
+        "Enrolled User",
+        "Last Logon User",
+        "UPN",
+        "Last Logon"
+      ],
+      "User": [
+        "Full Name",
+        "Department"
+      ]
+    },
+    "A16": {
+      "App Protection State": [
+        "deviceUser.id",
+        "Is Protected",
+        "Last Sync (Days)",
+        "managedApp.id",
+        "managedAppPolicy.id"
+      ],
+      "App Protection": [
+        "App Protection Name"
+      ],
+      "App Protection Type": [
+        "App Protection Platform"
+      ],
+      "App Protection Policy": [
+        "Is Assigned"
+      ],
+      "User Devices": [
+        "deviceUser.id"
+      ]
+    }
+  },
+  "entryPoint": "SKILL.md",
+  "license": "MIT",
+  "files": [
+    "LICENSE",
+    "SKILL.md",
+    "manifest.json",
+    "references/analysis-areas.md",
+    "references/analysis-foundation.md",
+    "references/app-error-codes.md",
+    "references/executive-outputs.md",
+    "references/model-core-tables.md",
+    "references/model-foundation.md",
+    "references/model-measure-semantics.md",
+    "references/model-time-and-freshness.md",
+    "references/ranking-and-output.md",
+    "scripts/README.md",
+    "scripts/build_deck.py",
+    "scripts/build_report.py",
+    "scripts/executive-data.schema.json",
+    "scripts/make_template.py",
+    "scripts/serve_report.py",
+    "scripts/templates/powerstacks-executive.pptx",
+    "scripts/templates/powerstacks-logo.png",
+    "scripts/templates/report-template.html"
+  ],
+  "modelCompatibility": [
+    {
+      "product": "bi-for-intune",
+      "modelVersions": [
+        "69",
+        "70"
+      ],
+      "status": "validated-demo",
+      "builtAgainstVersion": "69"
+    }
+  ]
+}

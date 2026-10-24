@@ -1,0 +1,394 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "powerstacks.executive-data/1.0",
+  "title": "PowerStacks briefing data for executive outputs",
+  "description": "Input for build_deck.py and build_report.py. Every figure must come from the briefing produced by the skill; the generators do not query the model or compute new figures.",
+  "type": "object",
+  "required": [
+    "title",
+    "collectedUtc",
+    "scope",
+    "findings"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "product": {
+      "type": "string",
+      "description": "Exact product name, for example BI for Intune."
+    },
+    "title": {
+      "type": "string"
+    },
+    "audience": {
+      "type": "string"
+    },
+    "author": {
+      "type": "string",
+      "description": "Optional document author property. Default empty."
+    },
+    "source": {
+      "type": "string",
+      "description": "For example: BI for Intune semantic model."
+    },
+    "collectedUtc": {
+      "type": "string",
+      "description": "Data collection time as the model records it. Add the time zone if the model states one; otherwise say it is not stated."
+    },
+    "scope": {
+      "type": "string",
+      "description": "Population and size, as stated in the briefing."
+    },
+    "summary": {
+      "type": "object",
+      "properties": {
+        "slideTitle": {
+          "type": "string"
+        },
+        "metrics": {
+          "type": "array",
+          "maxItems": 3,
+          "items": {
+            "$ref": "#/$defs/metric"
+          }
+        },
+        "text": {
+          "type": "string"
+        },
+        "caveat": {
+          "type": "string"
+        }
+      }
+    },
+    "findingsTitle": {
+      "type": "string"
+    },
+    "findingsHeaders": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "rankingNote": {
+      "type": "string"
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/finding"
+      }
+    },
+    "deadlinesTitle": {
+      "type": "string"
+    },
+    "deadlinesHeaders": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "deadlines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string"
+          },
+          "what": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "string"
+          },
+          "daysRemaining": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "deadlinesEmptyText": {
+      "type": "string"
+    },
+    "deadlineWindow": {
+      "type": "string"
+    },
+    "notesTitle": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "array",
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "next": {
+      "type": "object",
+      "properties": {
+        "slideTitle": {
+          "type": "string"
+        },
+        "investigation": {
+          "type": "string"
+        },
+        "context": {
+          "type": "string"
+        },
+        "followup": {
+          "type": "string"
+        }
+      }
+    },
+    "devicesNote": {
+      "type": "string"
+    },
+    "devices": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/device"
+      }
+    },
+    "thresholds": {
+      "type": "object",
+      "description": "Status colors: green when at least 'good' percent of the relevant devices are not affected, amber from 'warn' to 'good', red below 'warn'. Defaults 95 and 85.",
+      "properties": {
+        "good": {
+          "type": "number"
+        },
+        "warn": {
+          "type": "number"
+        }
+      }
+    },
+    "thresholdsNote": {
+      "type": "string"
+    },
+    "checkIn": {
+      "type": "object",
+      "description": "Managed devices by days since last check-in, from the briefing population line.",
+      "properties": {
+        "managed": {
+          "type": "integer"
+        },
+        "bands": {
+          "type": "object",
+          "properties": {
+            "d0to14": {
+              "type": "integer"
+            },
+            "d15to30": {
+              "type": "integer"
+            },
+            "d31to60": {
+              "type": "integer"
+            },
+            "d61to90": {
+              "type": "integer"
+            },
+            "over90": {
+              "type": "integer"
+            }
+          }
+        },
+        "title": {
+          "type": "string",
+          "description": "Card title. Default: Device check-in."
+        },
+        "populationLabel": {
+          "type": "string",
+          "description": "Default: managed devices. BI for Defender: onboarded devices."
+        },
+        "measureLabel": {
+          "type": "string",
+          "description": "Default: days since last check-in. BI for Defender: days since last seen."
+        }
+      }
+    },
+    "deadlineWindowDays": {
+      "type": "integer"
+    },
+    "devicesDaysLabel": {
+      "type": "string",
+      "description": "Device table column label for lastCheckInDays. Default: Last check-in (days). BI for Defender: Last seen (days)."
+    }
+  },
+  "$defs": {
+    "metric": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "good",
+            "warn",
+            "bad"
+          ],
+          "description": "Optional. Only for share metrics: good at or above thresholds.good, warn at or above thresholds.warn, otherwise bad. Display only."
+        }
+      }
+    },
+    "chart": {
+      "type": "object",
+      "required": [
+        "categories",
+        "series"
+      ],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "stacked": {
+          "type": "boolean"
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "series": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "values": {
+                "type": "array",
+                "items": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "emptyText": {
+          "type": "string"
+        }
+      }
+    },
+    "finding": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "count"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique finding id, for example the analysis area."
+        },
+        "title": {
+          "type": "string"
+        },
+        "count": {
+          "type": "integer",
+          "description": "Distinct affected devices (or the unit in countLabel)."
+        },
+        "countLabel": {
+          "type": "string"
+        },
+        "population": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Applicable population; null when not established."
+        },
+        "share": {
+          "type": "string"
+        },
+        "observation": {
+          "type": "string"
+        },
+        "implication": {
+          "type": "string"
+        },
+        "nextStep": {
+          "type": "string"
+        },
+        "caveat": {
+          "type": "string",
+          "description": "Check-in context, status age, and material caveats."
+        },
+        "chart": {
+          "$ref": "#/$defs/chart"
+        },
+        "breakdown": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "summary": {
+              "type": "string"
+            },
+            "context": {
+              "type": "string"
+            },
+            "scope": {
+              "type": "string"
+            },
+            "chart": {
+              "$ref": "#/$defs/chart"
+            }
+          }
+        }
+      }
+    },
+    "device": {
+      "type": "object",
+      "properties": {
+        "finding": {
+          "type": "string",
+          "description": "Finding id."
+        },
+        "device": {
+          "type": "string"
+        },
+        "serial": {
+          "type": "string"
+        },
+        "user": {
+          "type": "string"
+        },
+        "department": {
+          "type": "string"
+        },
+        "os": {
+          "type": "string"
+        },
+        "lastCheckInDays": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

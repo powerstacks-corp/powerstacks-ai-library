@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<!-- Snapshot report generated from a briefing data file. It makes no network requests and does not refresh itself. Regenerate it to see newer data. -->
+<style>
+:root {
+  --bg: #ffffff; --surface: #fafafa; --surface-2: #f3f4f6; --line: #e5e7eb;
+  --text: #1f2937; --heading: #051441; --muted: #6b7280;
+  --accent: #4ba3c7; --hero-a: #3221aa; --hero-b: #5670f0; --hero-text: #ffffff;
+  --good: #2e9e44; --good-soft: #e3f6e6; --warn: #c27c0e; --warn-soft: #fdf1dc; --bad: #d92d20; --bad-soft: #fde4e1;
+  --track: #e5e7eb; --shadow: 0 1px 2px rgba(5, 20, 65, .06), 0 4px 16px rgba(5, 20, 65, .05);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #000000; --surface: #0b0b0b; --surface-2: #141414; --line: #262626;
+    --text: #f5f5f5; --heading: #ffffff; --muted: #a3a3a3;
+    --accent: #6ec1e4; --hero-text: #ffffff;
+    --good: #61ce70; --good-soft: #0f2a14; --warn: #f5b041; --warn-soft: #2e2208; --bad: #ff5a4f; --bad-soft: #330d0b;
+    --track: #262626; --shadow: none;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #000000; --surface: #0b0b0b; --surface-2: #141414; --line: #262626;
+  --text: #f5f5f5; --heading: #ffffff; --muted: #a3a3a3;
+  --accent: #6ec1e4; --hero-text: #ffffff;
+  --good: #61ce70; --good-soft: #0f2a14; --warn: #f5b041; --warn-soft: #2e2208; --bad: #ff5a4f; --bad-soft: #330d0b;
+  --track: #262626; --shadow: none;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.55 "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif; -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+h1, h2, h3 { color: var(--heading); letter-spacing: -0.01em; font-weight: 600; }
+h2 { font-size: 22px; margin: 0 0 4px; }
+.sub { color: var(--muted); margin: 0 0 16px; }
+button { font: inherit; cursor: pointer; }
+
+/* Hero, modeled on the marketing site */
+.hero { background: linear-gradient(90deg, var(--hero-a) 0%, var(--hero-b) 100%); color: var(--hero-text); }
+.hero .wrap { padding-top: 22px; padding-bottom: 34px; }
+.hero-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.hero img { height: 72px; width: auto; display: block; margin-left: -10px; }
+.hero-actions { display: flex; gap: 8px; }
+.ghost { background: transparent; color: var(--hero-text); border: 1px solid rgba(255, 255, 255, .45); border-radius: 8px; padding: 6px 14px; font-weight: 600; }
+.ghost:hover { border-color: #fff; }
+.product { color: #6ec1e4; font-weight: 600; margin-top: 26px; }
+.hero h1 { color: var(--hero-text); font-size: 40px; line-height: 1.1; margin: 6px 0 10px; }
+.hero .meta { opacity: .88; font-size: 15px; }
+
+main { padding: 28px 0 48px; }
+section { margin-bottom: 36px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; box-shadow: var(--shadow); }
+
+/* Headline */
+.headline { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center; }
+.overall { width: 14px; align-self: stretch; border-radius: 8px; }
+.headline p { margin: 0; font-size: 18px; color: var(--text); }
+.headline .caveat { margin-top: 8px; font-size: 14px; color: var(--muted); }
+
+/* Scorecard */
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.tile { display: grid; grid-template-columns: 92px 1fr; gap: 14px; align-items: center; text-align: left; background: var(--surface); color: var(--text); border: 1px solid var(--line); border-radius: 12px; padding: 14px; box-shadow: var(--shadow); border-left: 5px solid var(--track); }
+.tile.good { border-left-color: var(--good); } .tile.warn { border-left-color: var(--warn); } .tile.bad { border-left-color: var(--bad); }
+button.tile:hover { border-color: var(--accent); }
+button.tile[aria-pressed="true"] { outline: 2px solid var(--accent); outline-offset: 1px; }
+.tile .label { font-weight: 600; color: var(--heading); line-height: 1.25; }
+.tile .detail { color: var(--muted); font-size: 13px; margin-top: 2px; }
+.pill { display: inline-block; font-size: 12px; font-weight: 600; border-radius: 999px; padding: 1px 8px; margin-top: 6px; }
+.pill.good { background: var(--good-soft); color: var(--good); } .pill.warn { background: var(--warn-soft); color: var(--warn); } .pill.bad { background: var(--bad-soft); color: var(--bad); }
+.ring text.pct { font-size: 20px; font-weight: 700; fill: var(--heading); }
+.ring text.cap { font-size: 9px; fill: var(--muted); }
+.legend { color: var(--muted); font-size: 13px; margin-top: 10px; display: flex; gap: 14px; flex-wrap: wrap; }
+.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; vertical-align: -1px; }
+
+/* Freshness and deadlines */
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; }
+@media (max-width: 860px) { .two { grid-template-columns: minmax(0, 1fr); } }
+.stack { display: flex; height: 28px; border-radius: 8px; overflow: hidden; background: var(--track); }
+.stack span { display: block; height: 100%; transition: opacity .15s; }
+.stack span:hover { opacity: .8; }
+.stack-legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 6px 12px; margin-top: 10px; font-size: 13px; }
+.stack-legend b { color: var(--heading); }
+.timeline { position: relative; margin: 26px 6px 8px; height: 4px; background: var(--track); border-radius: 2px; }
+.tick { position: absolute; top: -7px; width: 18px; height: 18px; border-radius: 50%; border: 3px solid var(--surface); transform: translateX(-50%); }
+.tl-today { position: absolute; top: -22px; transform: translateX(-50%); font-size: 12px; color: var(--muted); }
+.dl { list-style: none; padding: 0; margin: 18px 0 0; }
+.dl li { display: grid; grid-template-columns: 74px 1fr; gap: 10px; padding: 8px 0; border-top: 1px solid var(--line); }
+.dl .days { font-weight: 700; }
+.dl li.empty { display: block; color: var(--muted); }
+.dl .what { color: var(--text); } .dl .scope { color: var(--muted); font-size: 13px; }
+
+/* Findings */
+.finding { display: grid; grid-template-columns: minmax(0, 1fr) 170px; gap: 14px; align-items: center; padding: 14px 0; border-top: 1px solid var(--line); }
+.finding:first-child { border-top: 0; }
+.finding h3 { margin: 0 0 6px; font-size: 16px; }
+.bar { height: 12px; border-radius: 6px; background: var(--good-soft); overflow: hidden; display: flex; }
+.bar .aff { background: var(--bad); }
+.bar.warn .aff { background: var(--warn); } .bar.good .aff { background: var(--good); }
+.finding .nums { text-align: right; }
+.finding .big { font-size: 22px; font-weight: 700; color: var(--heading); }
+.finding .of { color: var(--muted); font-size: 13px; }
+.finding .more { grid-column: 1 / -1; display: none; }
+.finding.open .more { display: block; }
+.toggle { background: none; border: 0; color: var(--accent); padding: 4px 0 0; font-weight: 600; }
+.kv { display: grid; grid-template-columns: 140px 1fr; gap: 6px 14px; margin: 8px 0 0; }
+.kv dt { color: var(--muted); } .kv dd { margin: 0; }
+.mini { margin-top: 10px; }
+.mini svg { width: 100%; max-width: 560px; height: auto; }
+.mini text { fill: var(--text); font-size: 12px; }
+
+/* Details */
+details { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; }
+summary { cursor: pointer; font-weight: 600; color: var(--heading); }
+.filters { display: flex; gap: 10px; flex-wrap: wrap; align-items: end; margin: 14px 0; }
+.filters label { display: flex; flex-direction: column; font-size: 13px; color: var(--muted); gap: 4px; }
+select, input[type=search] { font: inherit; color: var(--text); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; }
+.btn { background: #61ce70; color: #051441; border: 0; border-radius: 8px; padding: 7px 14px; font-weight: 600; }
+.btn.secondary { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { color: var(--muted); font-weight: 600; cursor: pointer; user-select: none; }
+th[aria-sort="ascending"]::after { content: " \25B2"; font-size: 10px; }
+th[aria-sort="descending"]::after { content: " \25BC"; font-size: 10px; }
+td.num, th.num { text-align: right; }
+.notes dt { font-weight: 600; color: var(--heading); margin-top: 8px; }
+.notes dd { margin: 2px 0 0; color: var(--text); }
+.foot { color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); padding-top: 14px; }
+.hidden { display: none !important; }
+@media print {
+  .hero-actions, .filters, .toggle, #download { display: none !important; }
+  .finding .more { display: block !important; }
+  details { border: 0; padding: 0; } details > summary { display: none; }
+  .hero { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  section, .card, .tile { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-top">
+      <img src="{{LOGO_DATA_URI}}" alt="PowerStacks">
+      <div class="hero-actions">
+        <button class="ghost" id="theme" type="button" aria-label="Switch light or dark theme">Dark mode</button>
+        <button class="ghost" id="print" type="button">Print</button>
+      </div>
+    </div>
+    <div class="product" id="product"></div>
+    <h1 id="title"></h1>
+    <div class="meta" id="meta"></div>
+  </div>
+</header>
+<main class="wrap">
+  <section>
+    <div class="card headline">
+      <div class="overall" id="overall" aria-hidden="true"></div>
+      <div>
+        <p id="summary-text"></p>
+        <div class="caveat" id="summary-caveat"></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>At a glance</h2>
+    <p class="sub">Share of the relevant devices that are not affected by each finding. Colors are display thresholds, not a risk rating. Select a tile to see the finding.</p>
+    <div class="tiles" id="tiles"></div>
+    <div class="legend" id="legend"></div>
+  </section>
+
+  <section class="two">
+    <div class="card" id="freshness-card">
+      <h2 id="fresh-title">Device check-in</h2>
+      <p class="sub" id="fresh-sub"></p>
+      <div class="stack" id="stack" role="img"></div>
+      <div class="stack-legend" id="stack-legend"></div>
+    </div>
+    <div class="card hidden" id="deadlines-card">
+      <h2 id="deadlines-title">Upcoming deadlines</h2>
+      <p class="sub" id="deadline-window"></p>
+      <div class="timeline" id="timeline"></div>
+      <ul class="dl" id="deadlines"></ul>
+    </div>
+  </section>
+
+  <section>
+    <h2 id="findings-title">What needs attention</h2>
+    <p class="sub" id="ranking-note"></p>
+    <div class="card" id="findings"></div>
+  </section>
+
+  <section class="hidden" id="next-section">
+    <div class="card">
+      <h2 id="next-title">Recommended next step</h2>
+      <p id="next-investigation" style="font-size:17px;margin:8px 0"></p>
+      <p class="sub" id="next-context" style="margin:0"></p>
+    </div>
+  </section>
+
+  <section id="devices-section">
+    <details>
+      <summary>Device details for the team <span class="sub" id="device-count"></span></summary>
+      <p class="sub" id="device-note" style="margin-top:10px"></p>
+      <div class="filters">
+        <label>Finding <select id="f-finding"></select></label>
+        <label>Check-in age <select id="f-band"></select></label>
+        <label>Operating system <select id="f-os"></select></label>
+        <label>Search <input type="search" id="f-search" placeholder="Name, serial, user, department"></label>
+        <button type="button" class="btn secondary" id="f-reset">Reset</button>
+      </div>
+      <div class="table-wrap"><table id="devices"><thead></thead><tbody></tbody></table></div>
+      <p><button type="button" class="btn" id="download">Download these devices (CSV)</button></p>
+    </details>
+  </section>
+
+  <section class="hidden" id="notes-section">
+    <h2 id="notes-title">About this data</h2>
+    <dl class="notes" id="notes"></dl>
+  </section>
+
+  <p class="foot" id="footer"></p>
+</main>
+<script type="application/json" id="briefing-data">{{DATA_JSON}}</script>
+<script>
+(function () {
+  "use strict";
+  var D = JSON.parse(document.getElementById("briefing-data").textContent);
+  var findings = D.findings || [];
+  var devices = D.devices || [];
+  var TH = D.thresholds || {good: 95, warn: 85};
+  var BANDS = [
+    {id: "all", label: "All", test: function () { return true; }},
+    {id: "le14", label: "0 to 14 days", test: function (d) { return d <= 14; }},
+    {id: "gt14", label: "Over 14 days", test: function (d) { return d > 14; }},
+    {id: "gt30", label: "Over 30 days", test: function (d) { return d > 30; }},
+    {id: "gt90", label: "Over 90 days", test: function (d) { return d > 90; }}
+  ];
+  var state = {finding: "all", band: "all", os: "all", q: "", sortKey: "lastCheckInDays", sortDir: -1};
+  var titleById = {};
+  findings.forEach(function (f) { titleById[f.id] = f.title; });
+
+  function $(id) { return document.getElementById(id); }
+  function el(tag, attrs, text) {
+    var e = document.createElement(tag);
+    if (attrs) Object.keys(attrs).forEach(function (k) { e.setAttribute(k, attrs[k]); });
+    if (text !== undefined && text !== null) e.textContent = String(text);
+    return e;
+  }
+  function svg(tag, attrs) {
+    var e = document.createElementNS("http://www.w3.org/2000/svg", tag);
+    Object.keys(attrs || {}).forEach(function (k) { e.setAttribute(k, attrs[k]); });
+    return e;
+  }
+  function fmt(n) { return typeof n === "number" ? n.toLocaleString("en-US") : (n == null ? "" : String(n)); }
+  function css(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+  function statusFor(okPct) { return okPct >= TH.good ? "good" : okPct >= TH.warn ? "warn" : "bad"; }
+  function statusWord(s) { return s === "good" ? TH.good + "%+ not affected" : s === "warn" ? TH.warn + " to " + TH.good + "% not affected" : "Under " + TH.warn + "% not affected"; }
+
+  // Each finding with a known population becomes a tile: share of relevant devices NOT affected.
+  var scored = findings.map(function (f) {
+    if (typeof f.count !== "number" || typeof f.population !== "number" || f.population <= 0) return {f: f, ok: null, status: null};
+    var ok = Math.max(0, 100 * (1 - f.count / f.population));
+    return {f: f, ok: ok, status: statusFor(ok)};
+  });
+
+  function ring(okPct, status) {
+    var r = 36, c = 2 * Math.PI * r, s = svg("svg", {viewBox: "0 0 92 92", width: 92, height: 92, "class": "ring", role: "img"});
+    s.appendChild(svg("circle", {cx: 46, cy: 46, r: r, fill: "none", stroke: css("--track"), "stroke-width": 9}));
+    if (okPct !== null && okPct >= 0.5) {
+      var arc = svg("circle", {cx: 46, cy: 46, r: r, fill: "none", stroke: css("--" + status), "stroke-width": 9, "stroke-linecap": "round",
+        "stroke-dasharray": (c * okPct / 100) + " " + c, transform: "rotate(-90 46 46)"});
+      s.appendChild(arc);
+    }
+    if (okPct !== null) {
+      var t = svg("text", {x: 46, y: 50, "text-anchor": "middle", "class": "pct"}); t.textContent = Math.floor(okPct) + "%"; s.appendChild(t);
+      var cap = svg("text", {x: 46, y: 63, "text-anchor": "middle", "class": "cap"}); cap.textContent = "not affected"; s.appendChild(cap);
+    } else {
+      var n = svg("text", {x: 46, y: 52, "text-anchor": "middle", "class": "pct"}); n.textContent = "n/a"; s.appendChild(n);
+    }
+    var tt = svg("title", {}); tt.textContent = okPct === null ? "Applicable population not established" : Math.floor(okPct) + "% of relevant devices not affected"; s.appendChild(tt);
+    return s;
+  }
+
+  function header() {
+    $("product").textContent = D.product || "";
+    $("title").textContent = D.title || "";
+    $("meta").textContent = ["Data collected " + D.collectedUtc, D.scope].filter(Boolean).join("  ·  ");
+    document.title = D.title || document.title;
+    var s = D.summary || {};
+    $("summary-text").textContent = s.text || "";
+    $("summary-caveat").textContent = s.caveat || "";
+    var worst = scored.reduce(function (w, x) { return x.status === "bad" ? "bad" : (x.status === "warn" && w !== "bad") ? "warn" : w; }, "good");
+    $("overall").style.background = css("--" + worst);
+    $("footer").textContent = "Snapshot of " + (D.source || "the semantic model") + ", data collected " + D.collectedUtc +
+      ". This page does not refresh or connect to any service. Ask for the report again to see newer data." + (D.audience ? " Prepared for " + D.audience + "." : "");
+  }
+
+  function tiles() {
+    var box = $("tiles");
+    scored.forEach(function (x) {
+      var b = el("button", {type: "button", "class": "tile " + (x.status || ""), "aria-pressed": "false", "data-id": x.f.id});
+      b.appendChild(ring(x.ok, x.status));
+      var t = el("div");
+      t.appendChild(el("div", {"class": "label"}, x.f.title));
+      t.appendChild(el("div", {"class": "detail"}, fmt(x.f.count) + " affected" + (typeof x.f.population === "number" ? " of " + fmt(x.f.population) : "")));
+      if (x.status) t.appendChild(el("span", {"class": "pill " + x.status}, statusWord(x.status)));
+      b.appendChild(t);
+      b.addEventListener("click", function () { openFinding(x.f.id, true); });
+      box.appendChild(b);
+    });
+    var lg = $("legend");
+    [["good", "Green: at least " + TH.good + "% not affected"], ["warn", "Amber: " + TH.warn + "% to " + TH.good + "%"], ["bad", "Red: below " + TH.warn + "%"]]
+      .forEach(function (p) { var s = el("span"); var d = el("span", {"class": "dot"}); d.style.background = css("--" + p[0]); s.appendChild(d); s.appendChild(document.createTextNode(p[1])); lg.appendChild(s); });
+    if (D.thresholdsNote) lg.appendChild(el("span", null, D.thresholdsNote));
+  }
+
+  function freshness() {
+    var ci = D.checkIn;
+    if (!ci || !ci.bands) { $("freshness-card").classList.add("hidden"); return; }
+    var parts = [
+      ["0 to 14 days", ci.bands.d0to14, "--good"], ["15 to 30 days", ci.bands.d15to30, "--warn"],
+      ["31 to 90 days", (ci.bands.d31to60 || 0) + (ci.bands.d61to90 || 0), "--bad"], ["Over 90 days", ci.bands.over90, "--muted"]
+    ];
+    var total = parts.reduce(function (s, p) { return s + (p[1] || 0); }, 0) || 1;
+    if (ci.title) $("fresh-title").textContent = ci.title;
+    $("fresh-sub").textContent = fmt(ci.managed || total) + " " + (ci.populationLabel || "managed devices") + " by " + (ci.measureLabel || "days since last check-in") + ".";
+    var st = $("stack"); st.setAttribute("aria-label", parts.map(function (p) { return p[0] + ": " + fmt(p[1] || 0); }).join(", "));
+    parts.forEach(function (p) {
+      var w = 100 * (p[1] || 0) / total;
+      var s = el("span", {title: p[0] + ": " + fmt(p[1] || 0) + " (" + w.toFixed(1) + "%)"});
+      s.style.width = w + "%"; s.style.background = css(p[2]); st.appendChild(s);
+      var l = el("div"); var d = el("span", {"class": "dot"}); d.style.background = css(p[2]);
+      l.appendChild(d); l.appendChild(document.createTextNode(p[0] + " ")); l.appendChild(el("b", null, fmt(p[1] || 0)));
+      $("stack-legend").appendChild(l);
+    });
+  }
+
+  function deadlines() {
+    if (!D.deadlines) return;
+    $("deadlines-card").classList.remove("hidden");
+    if (D.deadlinesTitle) $("deadlines-title").textContent = D.deadlinesTitle;
+    $("deadline-window").textContent = D.deadlineWindow || "";
+    var list = D.deadlines;
+    if (!list.length) { $("deadlines").appendChild(el("li", {"class": "empty"}, D.deadlinesEmptyText || "No source-reported deadlines in this window.")); $("timeline").classList.add("hidden"); return; }
+    var maxDays = Math.max.apply(null, list.map(function (d) { return d.daysRemaining || 0; }).concat([D.deadlineWindowDays || 14]));
+    var today = el("span", {"class": "tl-today"}, "Today"); today.style.left = "0%"; $("timeline").appendChild(today);
+    list.forEach(function (d) {
+      var days = typeof d.daysRemaining === "number" ? d.daysRemaining : null;
+      var color = days === null ? css("--muted") : days <= 7 ? css("--bad") : days <= 30 ? css("--warn") : css("--good");
+      if (days !== null) {
+        var t = el("span", {"class": "tick", title: d.date + ": " + d.what}); t.style.left = Math.min(100, 100 * days / maxDays) + "%"; t.style.background = color;
+        $("timeline").appendChild(t);
+      }
+      var li = el("li");
+      var dd = el("div", {"class": "days"}, days === null ? d.date : (days + " days")); dd.style.color = color;
+      var right = el("div");
+      right.appendChild(el("div", {"class": "what"}, d.what));
+      right.appendChild(el("div", {"class": "scope"}, [d.date, d.scope].filter(Boolean).join("  ·  ")));
+      li.appendChild(dd); li.appendChild(right); $("deadlines").appendChild(li);
+    });
+  }
+
+  function miniBars(chart) {
+    var cats = chart.categories || [], vals = ((chart.series || [])[0] || {values: []}).values;
+    var labelW = 200, w = 560, rowH = 24, h = cats.length * rowH + 6, max = Math.max.apply(null, vals.concat([1]));
+    var s = svg("svg", {viewBox: "0 0 " + w + " " + h, role: "img"});
+    var tt = svg("title", {}); tt.textContent = chart.title || ""; s.appendChild(tt);
+    cats.forEach(function (c, i) {
+      var y = i * rowH + 3, bw = Math.max(2, (w - labelW - 50) * (vals[i] || 0) / max);
+      var l = svg("text", {x: labelW - 8, y: y + 15, "text-anchor": "end"}); l.textContent = c.length > 30 ? c.slice(0, 29) + "..." : c; s.appendChild(l);
+      s.appendChild(svg("rect", {x: labelW, y: y + 4, width: bw, height: rowH - 9, rx: 3, fill: css("--accent")}));
+      var v = svg("text", {x: labelW + bw + 6, y: y + 15}); v.textContent = fmt(vals[i]); s.appendChild(v);
+    });
+    return s;
+  }
+
+  function findingsList() {
+    if (D.findingsTitle) $("findings-title").textContent = D.findingsTitle;
+    $("ranking-note").textContent = D.rankingNote || "";
+    var box = $("findings");
+    scored.forEach(function (x) {
+      var f = x.f, row = el("div", {"class": "finding", id: "finding-" + f.id});
+      var left = el("div");
+      left.appendChild(el("h3", null, f.title));
+      if (x.ok !== null) {
+        var bar = el("div", {"class": "bar " + x.status, role: "img", "aria-label": fmt(f.count) + " of " + fmt(f.population) + " affected"});
+        var aff = el("div", {"class": "aff"}); aff.style.width = Math.max(1, 100 - x.ok) + "%"; bar.appendChild(aff); left.appendChild(bar);
+      }
+      var tg = el("button", {"class": "toggle", type: "button", "aria-expanded": "false"}, "Details");
+      tg.addEventListener("click", function () { openFinding(f.id, false); });
+      left.appendChild(tg);
+      var nums = el("div", {"class": "nums"});
+      nums.appendChild(el("div", {"class": "big"}, fmt(f.count) + (f.share ? " (" + f.share + ")" : "")));
+      nums.appendChild(el("div", {"class": "of"}, (f.countLabel || "devices") + (typeof f.population === "number" ? " of " + fmt(f.population) : "")));
+      var more = el("div", {"class": "more"});
+      var dl = el("dl", {"class": "kv"});
+      [["What we found", f.observation], ["Why it matters", f.implication], ["Next step", f.nextStep], ["Context", f.caveat]]
+        .forEach(function (kv) { if (kv[1]) { dl.appendChild(el("dt", null, kv[0])); dl.appendChild(el("dd", null, kv[1])); } });
+      more.appendChild(dl);
+      var bd = f.breakdown && f.breakdown.chart ? f.breakdown : null;
+      [[f.chart, f.chart && f.chart.title], [bd && bd.chart, bd && bd.title]].forEach(function (p) {
+        if (!p[0]) return;
+        var m = el("div", {"class": "mini"}); m.appendChild(el("div", {"class": "sub", style: "margin:0 0 4px"}, p[1] || "")); m.appendChild(miniBars(p[0])); more.appendChild(m);
+      });
+      if (bd && (bd.context || bd.scope)) more.appendChild(el("p", {"class": "sub"}, [bd.context, bd.scope].filter(Boolean).join(" ")));
+      row.appendChild(left); row.appendChild(nums); row.appendChild(more);
+      box.appendChild(row);
+    });
+  }
+
+  function openFinding(id, scroll) {
+    var row = $("finding-" + id); if (!row) return;
+    var open = !row.classList.contains("open") || scroll;
+    row.classList.toggle("open", open);
+    row.querySelector(".toggle").setAttribute("aria-expanded", String(open));
+    row.querySelector(".toggle").textContent = open ? "Hide details" : "Details";
+    Array.prototype.forEach.call(document.querySelectorAll(".tile"), function (t) { t.setAttribute("aria-pressed", String(t.getAttribute("data-id") === id && open)); });
+    if (scroll) row.scrollIntoView({behavior: "smooth", block: "center"});
+  }
+
+  function rest() {
+    var n = D.next;
+    if (n) { $("next-section").classList.remove("hidden"); if (n.slideTitle) $("next-title").textContent = n.slideTitle;
+      $("next-investigation").textContent = n.investigation || ""; $("next-context").textContent = [n.context, n.followup].filter(Boolean).join(" "); }
+    if (D.notes && D.notes.length) { $("notes-section").classList.remove("hidden");
+      D.notes.forEach(function (x) { $("notes").appendChild(el("dt", null, x.title)); $("notes").appendChild(el("dd", null, x.body)); }); }
+  }
+
+  // Device details
+  var COLS = [
+    {key: "finding", label: "Finding"}, {key: "device", label: "Device"}, {key: "serial", label: "Serial number"},
+    {key: "user", label: "User"}, {key: "department", label: "Department"}, {key: "os", label: "OS"},
+    {key: "lastCheckInDays", label: D.devicesDaysLabel || "Last check-in (days)", num: true}
+  ];
+  // Hide columns that are empty for every device (for example, no serial numbers in BI for Defender).
+  COLS = COLS.filter(function (c) { return c.key === "finding" || c.key === "device" || devices.some(function (d) { return d[c.key] !== undefined && d[c.key] !== null && d[c.key] !== ""; }); });
+  function filtered() {
+    var band = BANDS.filter(function (b) { return b.id === state.band; })[0], q = state.q.toLowerCase();
+    return devices.filter(function (d) {
+      if (state.finding !== "all" && d.finding !== state.finding) return false;
+      if (state.os !== "all" && d.os !== state.os) return false;
+      if (typeof d.lastCheckInDays === "number" && !band.test(d.lastCheckInDays)) return false;
+      if (q && [d.device, d.serial, d.user, d.department].join(" ").toLowerCase().indexOf(q) < 0) return false;
+      return true;
+    });
+  }
+  var lastRows = [];
+  function table() {
+    var rows = filtered().slice().sort(function (a, b) {
+      var x = a[state.sortKey], y = b[state.sortKey];
+      if (typeof x === "number" && typeof y === "number") return (x - y) * state.sortDir;
+      return String(x || "").localeCompare(String(y || "")) * state.sortDir;
+    });
+    var thead = $("devices").tHead; thead.textContent = "";
+    var tr = el("tr");
+    COLS.forEach(function (c) {
+      var th = el("th", {scope: "col", "class": c.num ? "num" : "", tabindex: 0}, c.label);
+      if (state.sortKey === c.key) th.setAttribute("aria-sort", state.sortDir > 0 ? "ascending" : "descending");
+      var go = function () { if (state.sortKey === c.key) state.sortDir *= -1; else { state.sortKey = c.key; state.sortDir = c.num ? -1 : 1; } table(); };
+      th.addEventListener("click", go); th.addEventListener("keydown", function (e) { if (e.key === "Enter") go(); });
+      tr.appendChild(th);
+    });
+    thead.appendChild(tr);
+    var tb = $("devices").tBodies[0]; tb.textContent = "";
+    rows.forEach(function (d) {
+      var r = el("tr");
+      COLS.forEach(function (c) { var v = c.key === "finding" ? (titleById[d.finding] || d.finding) : d[c.key]; r.appendChild(el("td", {"class": c.num ? "num" : ""}, c.num ? fmt(v) : v)); });
+      tb.appendChild(r);
+    });
+    $("device-count").textContent = "(" + fmt(rows.length) + " of " + fmt(devices.length) + ")";
+    $("device-note").textContent = D.devicesNote || "";
+    lastRows = rows;
+  }
+  function controls() {
+    if (!devices.length) { $("devices-section").classList.add("hidden"); return; }
+    $("f-finding").appendChild(el("option", {value: "all"}, "All findings"));
+    findings.forEach(function (f) { $("f-finding").appendChild(el("option", {value: f.id}, f.title)); });
+    BANDS.forEach(function (b) { $("f-band").appendChild(el("option", {value: b.id}, b.label)); });
+    $("f-os").appendChild(el("option", {value: "all"}, "All"));
+    Array.from(new Set(devices.map(function (d) { return d.os; }).filter(Boolean))).sort().forEach(function (o) { $("f-os").appendChild(el("option", {value: o}, o)); });
+    [["f-finding", "finding"], ["f-band", "band"], ["f-os", "os"]].forEach(function (p) { $(p[0]).addEventListener("change", function (e) { state[p[1]] = e.target.value; table(); }); });
+    $("f-search").addEventListener("input", function (e) { state.q = e.target.value; table(); });
+    $("f-reset").addEventListener("click", function () {
+      state.finding = "all"; state.band = "all"; state.os = "all"; state.q = "";
+      $("f-finding").value = "all"; $("f-band").value = "all"; $("f-os").value = "all"; $("f-search").value = ""; table();
+    });
+    $("download").addEventListener("click", function () {
+      // Quote every field; prefix values a spreadsheet could read as a formula.
+      var esc = function (v) {
+        v = v == null ? "" : String(v);
+        if (/^[=+\-@\t\r]/.test(v)) v = "'" + v;
+        return '"' + v.replace(/"/g, '""') + '"';
+      };
+      var lines = [COLS.map(function (c) { return esc(c.label); }).join(",")];
+      lastRows.forEach(function (d) { lines.push(COLS.map(function (c) { return esc(c.key === "finding" ? (titleById[d.finding] || d.finding) : d[c.key]); }).join(",")); });
+      var a = el("a", {href: URL.createObjectURL(new Blob([lines.join("\r\n")], {type: "text/csv"})), download: "devices.csv"});
+      document.body.appendChild(a); a.click(); a.remove();
+    });
+    table();
+  }
+
+  function themeLabel() {
+    var cur = document.documentElement.getAttribute("data-theme");
+    var dark = cur ? cur === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    $("theme").textContent = dark ? "Light mode" : "Dark mode";
+    return dark;
+  }
+  function renderAll() {
+    ["tiles", "legend", "stack", "stack-legend", "timeline", "deadlines", "findings", "notes"].forEach(function (id) { $(id).textContent = ""; });
+    $("deadlines-card").classList.add("hidden");
+    header(); tiles(); freshness(); deadlines(); findingsList();
+  }
+  $("theme").addEventListener("click", function () {
+    document.documentElement.setAttribute("data-theme", themeLabel() ? "light" : "dark");
+    themeLabel(); renderAll(); rest();
+  });
+  $("print").addEventListener("click", function () { window.print(); });
+  themeLabel(); renderAll(); rest(); controls();
+})();
+</script>
+</body>
+</html>

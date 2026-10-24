@@ -1,14 +1,33 @@
 # BI for Intune
 
-> In preparation. No validated AI release is available yet.
+## Endpoint Operations Analyst (Preview)
 
-BI for Intune is the first PowerStacks product the AI Library will support. Its resources will be packaged and versioned independently of other products.
+A daily endpoint briefing built from your BI for Intune semantic model. Ask your AI assistant what your team should look at today, and it returns up to five findings ranked by how many devices each one affects.
 
-| Folder | Will contain |
-| --- | --- |
-| [model-context](model-context/README.md) | A description of the BI for Intune semantic model for AI tools |
-| [skills](skills/README.md) | Reusable instructions for specific kinds of analysis |
-| [prompts](prompts/README.md) | Ready-to-use questions and tasks |
-| [examples](examples/README.md) | Sample questions with the kind of result to expect |
+Each finding includes:
 
-Compatibility will be listed in [Compatibility](../../docs/compatibility.md) only after it has been tested.
+- How many devices are affected, out of how many it applies to.
+- How long ago those devices last checked in, so stale status is called out.
+- Which policy, app, script, or error code accounts for most of the impact.
+- Microsoft's guidance for app installation error codes, where Microsoft documents the code.
+- A specific next step to investigate. The skill recommends; it never changes anything.
+
+The briefing also lists upcoming source-reported deadlines (for example certificate and token expirations, and Windows end of service), additional findings below the briefing filters, areas it couldn't assess, and devices that haven't checked in for more than 14 days with serial numbers, users, and departments.
+
+On request, it turns the briefing into an executive PowerPoint presentation and a one-page interactive HTML report.
+
+### Get Started
+
+See the [getting started guide](../../docs/getting-started.md). Install the folder [`skills/endpoint-operations-analyst`](skills/endpoint-operations-analyst/SKILL.md).
+
+### Example Questions
+
+- "Act as my endpoint operations analyst. Give me the five things my team should investigate this morning."
+- "Same briefing, but only devices that checked in within the last 30 days."
+- "Rank by security relevance."
+- "Show me the devices behind the app installation finding."
+- "Turn this briefing into an executive presentation and an HTML report."
+
+### Requirements
+
+BI for Intune version 70 or later. See [compatibility](../../docs/compatibility.md) and [known limitations](../../docs/known-limitations.md).
