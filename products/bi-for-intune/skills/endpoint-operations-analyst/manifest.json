@@ -3,7 +3,7 @@
   "productScope": [
     "bi-for-intune"
   ],
-  "artifactVersion": "0.11.0-preview",
+  "artifactVersion": "0.12.0-preview",
   "status": "preview",
   "connectionRequirements": [
     "DAX query access to the BI for Intune semantic model",
@@ -12,7 +12,8 @@
     "Optional: read-only Power BI REST access to the dataset's refresh history (Microsoft requires Write permission on the dataset for this call). A fallback applies when unavailable."
   ],
   "optionalRequirements": [
-    "Executive outputs (on request): Python 3.9 or later on the computer running the skill; the python-pptx package for presentations."
+    "Executive outputs (on request): Python 3.9 or later on the computer running the skill; the python-pptx package for presentations.",
+    "Optional: saved answers (reused until the semantic model refreshes) need Python 3.9 or later; standard library only."
   ],
   "inputs": {
     "CheckInBands": [
@@ -267,8 +268,34 @@
     "references/model-foundation.md",
     "references/model-measure-semantics.md",
     "references/model-time-and-freshness.md",
+    "references/quick-answers.md",
+    "references/quick-answers/I02.md",
+    "references/quick-answers/I03.md",
+    "references/quick-answers/I04.md",
+    "references/quick-answers/I05.md",
+    "references/quick-answers/I06.md",
+    "references/quick-answers/I07.md",
+    "references/quick-answers/I08.md",
+    "references/quick-answers/I09.md",
+    "references/quick-answers/I10.md",
+    "references/quick-answers/I11.md",
+    "references/quick-answers/I12.md",
+    "references/quick-answers/I13.md",
+    "references/quick-answers/I14.md",
+    "references/quick-answers/I15.md",
+    "references/quick-answers/I16.md",
+    "references/quick-answers/I17.md",
+    "references/quick-answers/I18.md",
+    "references/quick-answers/I19.md",
+    "references/quick-answers/I20.md",
+    "references/quick-answers/I21.md",
+    "references/quick-answers/I22.md",
+    "references/quick-answers/I23.md",
+    "references/quick-answers/I24.md",
+    "references/quick-answers/I25.md",
     "references/ranking-and-output.md",
     "scripts/README.md",
+    "scripts/answer_cache.py",
     "scripts/build_deck.py",
     "scripts/build_report.py",
     "scripts/executive-data.schema.json",

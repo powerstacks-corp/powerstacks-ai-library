@@ -3,7 +3,7 @@
   "productScope": [
     "bi-for-defender"
   ],
-  "artifactVersion": "0.1.0-preview",
+  "artifactVersion": "0.2.0-preview",
   "status": "preview",
   "connectionRequirements": [
     "DAX query access to the BI for Defender semantic model",
@@ -12,7 +12,8 @@
     "No semantic model parameters are read. Never run INFO.EXPRESSIONS or INFO.PARTITIONS, and never read ApiKey, AzureAD TenantID, AzureAD ClientID, or AzureAD ClientSecret."
   ],
   "optionalRequirements": [
-    "Executive outputs (on request): Python 3.9 or later on the computer running the skill; the python-pptx package for presentations."
+    "Executive outputs (on request): Python 3.9 or later on the computer running the skill; the python-pptx package for presentations.",
+    "Optional: saved answers (reused until the semantic model refreshes) need Python 3.9 or later; standard library only."
   ],
   "inputs": {
     "LastSeenBands": [
@@ -133,8 +134,27 @@
     "references/analysis-foundation.md",
     "references/executive-outputs.md",
     "references/model-foundation.md",
+    "references/quick-answers.md",
+    "references/quick-answers/D01.md",
+    "references/quick-answers/D02.md",
+    "references/quick-answers/D03.md",
+    "references/quick-answers/D04.md",
+    "references/quick-answers/D05.md",
+    "references/quick-answers/D06.md",
+    "references/quick-answers/D07.md",
+    "references/quick-answers/D08.md",
+    "references/quick-answers/D09.md",
+    "references/quick-answers/D10.md",
+    "references/quick-answers/D11.md",
+    "references/quick-answers/D12.md",
+    "references/quick-answers/D13.md",
+    "references/quick-answers/D14.md",
+    "references/quick-answers/D15.md",
+    "references/quick-answers/D16.md",
+    "references/quick-answers/D17.md",
     "references/ranking-and-output.md",
     "scripts/README.md",
+    "scripts/answer_cache.py",
     "scripts/build_deck.py",
     "scripts/build_report.py",
     "scripts/executive-data.schema.json",

@@ -16,7 +16,7 @@ This page lists what each Preview skill was tested with. Any AI assistant and co
 
 | Skill | Version | Product version tested | Test data |
 | --- | --- | --- | --- |
-| Endpoint Operations Analyst | 0.11.0-preview | BI for Intune version 70 | PowerStacks demo environment, 2026-10-23 |
-| Security Operations Analyst | 0.1.0-preview | BI for Defender version 15 | PowerStacks demo environment, 2026-10-23 |
+| Endpoint Operations Analyst | 0.12.0-preview | BI for Intune version 70 | PowerStacks demo environment, 2026-10-23; quick questions, PowerStacks test environment, 2026-10-24 |
+| Security Operations Analyst | 0.2.0-preview | BI for Defender version 15 | PowerStacks demo environment, 2026-10-23; quick questions, PowerStacks test environment, 2026-10-24 |
 
 The semantic models don't expose their version, so each skill checks at the start of every run that the tables and columns it needs exist. That check confirms the structure, not the meaning of every value. If you run an older product version, update it before you report a problem.
