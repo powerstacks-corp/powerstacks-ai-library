@@ -276,12 +276,12 @@ td.num, th.num { text-align: right; }
       s.appendChild(arc);
     }
     if (okPct !== null) {
-      var t = svg("text", {x: 46, y: 50, "text-anchor": "middle", "class": "pct"}); t.textContent = Math.floor(okPct) + "%"; s.appendChild(t);
+      var t = svg("text", {x: 46, y: 50, "text-anchor": "middle", "class": "pct"}); t.textContent = Math.round(okPct) + "%"; s.appendChild(t);
       var cap = svg("text", {x: 46, y: 63, "text-anchor": "middle", "class": "cap"}); cap.textContent = "not affected"; s.appendChild(cap);
     } else {
       var n = svg("text", {x: 46, y: 52, "text-anchor": "middle", "class": "pct"}); n.textContent = "n/a"; s.appendChild(n);
     }
-    var tt = svg("title", {}); tt.textContent = okPct === null ? "Applicable population not established" : Math.floor(okPct) + "% of relevant devices not affected"; s.appendChild(tt);
+    var tt = svg("title", {}); tt.textContent = okPct === null ? "Applicable population not established" : Math.round(okPct) + "% of relevant devices not affected"; s.appendChild(tt);
     return s;
   }
 
